@@ -1,15 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <LinkedList.h>
-
-// struct Node {
-//     struct Node* prev; // Previous struct
-//     char data;         // Data
-//     struct Node* next; // Next struct
-// };
+#include <Arduino.h>
+#include "LinkedList.h"
 
 void pushNode (struct Node** headRef, int newData){
-    struct Node* new_node = (struct Node*)malloc(sizeof(struct Node)); // Allocate memory for new nodde
+    struct Node* new_node = (struct Node*)malloc(sizeof(struct Node)); // Allocate memory for new node
     new_node->data = newData;                                          // Insert new data into struct
     new_node->next = (*headRef);                                       // Assign next to head reference ptr
     new_node->prev = NULL;                                             // Assign previous to NULL (no prev node)
@@ -54,15 +49,37 @@ void append(struct Node** headRef, int newData){
 
 void printDLL(struct Node* node){
     struct Node* last;
-    printf("Traversing forward\n");
+    Serial.print("Traversing forward\n");
     while (node != NULL){
-        printf("%d ", node->data);
+        Serial.println(node->data, DEC);
         last = node;
         node = node->next;
     }
-    printf("Traversing in reverse\n");
+    Serial.print("Traversing in reverse\n");
     while (last != NULL){
-        printf("%d ", last->data);
+        Serial.println(last->data, DEC);
         last = last->prev;
     }
+}
+
+void freeNode(struct Node* node, int index){
+    if (node == NULL || node->prev == NULL || node->next == NULL){
+        Serial.println("Current node cannot be NULL, a head, or a tail. Please use freeHead() or freeTail().");
+        return;
+    }
+    // Shift through the nodes until desired node to be deleted
+    for (int i = 0; i != index-1; i++){
+        node = node->next;
+    }
+    node->prev->next = node->next;                                 // Set new node's next to prev node's next
+    node->next->prev = node->prev;                                 // Set the next node from previous node to the new node
+    free(node);
+}
+
+void freeHead(){
+
+}
+
+void freeTail(){
+
 }

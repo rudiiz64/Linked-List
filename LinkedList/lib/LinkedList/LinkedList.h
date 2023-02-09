@@ -35,3 +35,10 @@ void append(struct Node** headRef, int newData);
  * @return: None
 */
 void printDLL(struct Node* node);
+
+/**
+ * @function: Removes a node from the doubly linked list and frees the memory
+ * @params: struct Node*
+ * @returns: None
+*/
+void freeNode(struct Node* node, int index);

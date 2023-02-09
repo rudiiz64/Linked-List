@@ -1,21 +1,20 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
+#include <Arduino.h>
 #include "LinkedList.h"
 
 void setup(){
-
+  Serial.begin(9600);
 }
-
-int main(){
+void loop(){
   /* THIS IS A TEST HARNESS */
   struct Node* head = NULL;   // Initial node generation
-  append(&head, 1);           // Insert 1 after head node
-  // if (head->data != 6 && head->next != NULL){
-  //   printf("A node is not correct");
-  // }
-  // else {
-    printDLL(head);
-  //}
-
+  append(&head, 6);           // Add 6 after current tail (6)
+  pushNode(&head, 7);         // push node before current head (7 -> 6)
+  pushNode(&head, 1);         // push node before current head (1 -> 7 -> 6)
+  append(&head, 4);           // Add 4 after current tail (1 -> 7 -> 6 -> 4)
+  insertAfter(head->next, 8); // Insert 8 in node after head (1 -> 7 -> 8 -> 6 -> 4)
+  freeNode(head, 1);          // 7 -> 8 -> 6 -> 4
+  printDLL(head);             // Print the doubly linked list (fw/reverse)
+  while(1);                   // Psuedo end
 }
