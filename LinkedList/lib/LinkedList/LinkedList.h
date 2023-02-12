@@ -42,3 +42,17 @@ void printDLL(struct Node* node);
  * @returns: None
 */
 void freeNode(struct Node* node, int index);
+
+/**
+ * @function: Removes the current head of the DLL and assigns the next node as the new head
+ * @params: A head reference headRef
+ * @returns: None
+*/
+void freeHead(struct Node** headRef);
+
+/**
+ * @function: Removes the current tail of the DLL and assigns the previous node as the new tail
+ * @params: A head reference headRef
+ * @returns: None
+*/
+void freeTail(struct Node** headRef);
